@@ -15,14 +15,15 @@ const homeScreens = () => {
     <SafeAreaView>
       <Text className= "text-red-600">
       {/*Header */}
-      <View>
-        <image source{{
+      <View className= "flex-row pb-3 items-center mx-4 space-x-2">
+        <image source = {{
             url: 'https://links.papareact.com/wru',
         }}
         className= "h-7 w-y bg-gray-700 p-4 rounded-full"
         />
         <View>
-        <Text></Text>
+        <Text className="font-bold text-gray-400 text-xs">Deliver Now</Text>
+        <Text>Current Location</Text>
         </View>
       </View>
       </Text>
