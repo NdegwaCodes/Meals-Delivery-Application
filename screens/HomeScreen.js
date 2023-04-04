@@ -1,5 +1,5 @@
-import { View, Text, SafeAreaView, Image, ScrollView } from 'react-native';
-import React, {useLayoutEffect} from 'react';
+import { View, Text, SafeAreaView, Image, TextInput, ScrollView } from 'react-native';
+import React, {useLayoutEffect, useState} from 'react';
 import { useNavigation } from '@react-navigation/native';
 import {
     UserIcon,
@@ -12,6 +12,7 @@ import FeaturedRow from '../components/FeaturedRow';
 
 const HomeScreen = () => {
     const navigation = useNavigation();
+    const {featuredCategories, setFeaturedCategories} = useState([]);
 
     useLayoutEffect(() => {
         navigation.setOptions({
@@ -19,6 +20,14 @@ const HomeScreen = () => {
         });
        
     }, []);
+
+    useEffect(() => {
+      effect
+      return () => {
+        cleanup
+      }
+    }, [input])
+
   return (
     <SafeAreaView className="bg-white pt-5">
       {/*Header */}
