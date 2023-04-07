@@ -9,6 +9,7 @@ import {
 } from "react-native-heroicons/outline";
 import Categories from '../components/Categories';
 import FeaturedRow from '../components/FeaturedRow';
+import { sanityClient } from 'sanity';
 
 const HomeScreen = () => {
     const navigation = useNavigation();
@@ -22,11 +23,17 @@ const HomeScreen = () => {
     }, []);
 
     useEffect(() => {
-      effect
-      return () => {
-        cleanup
-      }
-    }, [input])
+      sanityClient.fetch(`
+        *[_type == "featured"] {
+          ..., groceryshop[] -> {
+            ..., item[] ->
+          }
+        }
+      `).then((data) =>{
+        setFeaturedCategories(data);
+      });
+    }, []);
+    
 
   return (
     <SafeAreaView className="bg-white pt-5">
@@ -63,26 +70,14 @@ const HomeScreen = () => {
         <Categories />
 
         {/*Featured Rows*/}
+        {featuredCategories?.map((category) => (
         <FeaturedRow 
-        id="123"
-        title="Featured"
-        description="Paid Placements from our Patners"
-        
+        key={category._id}
+        id={category._id}
+        title={category.name}
+        description={category.short_description}
         />
-
-        <FeaturedRow 
-        id="1234"
-        title="Tasty Discounts"
-        description="Everyone's been enjoying these Juicy Discounts!"
-        
-        />
-
-        <FeaturedRow 
-        id="12345"
-        title="Offers Near You"
-        description="Why not support your Mama Mboga Today"
-        
-        />
+        ))};
         </ScrollView>
 
     </SafeAreaView>

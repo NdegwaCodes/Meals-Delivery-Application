@@ -2,6 +2,7 @@ import { View, Text } from 'react-native'
 import React from 'react'
 import { StarIcon } from 'react-native-heroicons/outline'
 import { LocationMarkerIcon} from "react-native-heroicons/outline"
+import { useNavigation } from '@react-navigation/native'
 const GroceryCard = ({
     id,
     imgUrl,
@@ -10,15 +11,31 @@ const GroceryCard = ({
     genre,
     address,
     short_description,
-    dishes,
+    items,
     long,
     lat,
 }) => {
+  const navigation = useNavigation();
   return (
-    <TouchableOpacity className="bg-white mr-3 shadow">
+    <TouchableOpacity
+    onPress={() => {
+      navigation.navigate("GroceryShop", {
+        id,
+        imgUrl,
+        title,
+        rating,
+        genre,
+        address,
+        short_description,
+        items,
+        long,
+        lat,
+      });
+    }}
+      className="bg-white mr-3 shadow">
       <image 
       source={{
-        url: imgUrl,
+        url: urlFor(imgUrl).url(),
       }}
       className="h-36 w-64 rounded-sn"
       />

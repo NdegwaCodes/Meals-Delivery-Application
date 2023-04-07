@@ -1,9 +1,26 @@
 import { View, Text } from 'react-native'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { ArrowRightIcon } from 'react-native-heroicons/outline'
 import { ScrollView } from 'react-native-web'
+import { sanityClient } from '@sanity/client';
 
 const FeaturedRow = ({id, title, description,}) => {
+  const [groceryshop, setGroceryShop] = useState([]);
+
+  useEffect(() => {
+    sanityClient.fetch(`
+      *[_type == "featured" && _id == $id] {
+        ..., groceryshop[] -> {
+          ..., item[] ->,
+          type -> {
+            name
+          }
+        }
+      }[0]
+    `, { id }).then(data=>{setGroceryShop(data?.groceryshop)});
+  }, [id]);
+  
+
   return (
     <View>
     <View className="mt-4 flex-row items-center justify-between px-4">
@@ -19,43 +36,22 @@ const FeaturedRow = ({id, title, description,}) => {
     showsHorizontalScrollIndicator={false}
     className="pt-4"
     >
-    {/*Grocery Cards */}  
-      <RestaurantCard 
-      id={123}
-      imgUrl="https://links.papareact.com/gn7"
-        title="Sukuma Wiki"
-        rating={4.5}
-        genre="Kenyan"
-        address="Nairobi"
-        short_description="Sukuma wiki is a Kenyan dish made from collard greens, tomatoes, onions, and spices. It is a popular dish in Kenya and is often served with ugali, chapati, or rice."
-        dishes={[]}
-        long={36.8219}
-        lat={-1.2921}
-      />
-      <RestaurantCard 
-      id={123}
-      imgUrl="https://links.papareact.com/gn7"
-        title="Sukuma Wiki"
-        rating={4.5}
-        genre="Kenyan"
-        address="Nairobi"
-        short_description="Sukuma wiki is a Kenyan dish made from collard greens, tomatoes, onions, and spices. It is a popular dish in Kenya and is often served with ugali, chapati, or rice."
-        dishes={[]}
-        long={36.8219}
-        lat={-1.2921}
-      />
-      <RestaurantCard 
-      id={123}
-      imgUrl="https://links.papareact.com/gn7"
-        title="Sukuma Wiki"
-        rating={4.5}
-        genre="Kenyan"
-        address="Nairobi"
-        short_description="Sukuma wiki is a Kenyan dish made from collard greens, tomatoes, onions, and spices. It is a popular dish in Kenya and is often served with ugali, chapati, or rice."
-        dishes={[]}
-        long={36.8219}
-        lat={-1.2921}
-      />
+      {groceryshop?.map((groceryshop => (
+        <GroceryShopCard 
+        key={restaurant._id}
+        id={groceryshop._id}
+        imgUrl={groceryshop.image}
+          title={groceryshop.name}
+          rating={groceryshop.rating}
+          genre={groceryshop.type.name}
+          address={groceryshop.address}
+          short_description={groceryshop.short_description}
+          item={groceryshop.item}
+          long={groceryshop.long}
+          lat={groceryshop.lat}
+        />
+      )))};
+    
     </ScrollView>
     </View>
   )
