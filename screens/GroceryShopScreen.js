@@ -1,11 +1,11 @@
 import { View, Text } from 'react-native'
 import React, { useLayoutEffect } from 'react'
 import { useNavigation, useRoute } from '@react-navigation/native'
-import { Image } from 'react-native-web';
+import { Image, TouchableOpacity } from 'react-native-web';
 import { urlFor } from '../sanity';
 import { ArrowLeftIcon, ChevronDoubleRightIcon, LocationMarkerIcon,StarIcon } from 'react-native-heroicons/solid';
 import { QuestionMarkCircleIcon, ArrowLeftCircleIcon } from 'react-native-heroicons/outline';
-
+import ItemRow from '../components/ItemRow';
 const GroceryShopScreen = () => {
     const navigation = useNavigation();
     const {
@@ -56,7 +56,29 @@ const GroceryShopScreen = () => {
             <Text className="text-xs text-gray-500">Nearby.{address}</Text>
             </View>
            </View>
+           <Text className="text-gray-500 mt-2 pb-4">{short_description}</Text>
         </View>
+        <TouchableOpacity className="flex-row items-center space-x-2 p-4 border-y-2 border-gray-300">
+            <QuestionMarkCircleIcon color="gray" opacity={0.6} size={20}/>
+            <Text className="pl-2 flex-1 text-md font-bold "> 
+            Have a Food Allergy?
+            </Text>
+            <ChevronDoubleRightIcon color="#00CCBB" />
+        </TouchableOpacity>
+        </View>
+        <View>
+            <Text className="px-4 pt-6 mb-3 font-bold text-xl">Items</Text>
+            {/*Item Rows */}
+            {items.map(item => {
+                <ItemRow 
+                key={item._id}
+                id={item._id}
+                name={item.title}
+                price={item.price}
+                imgUrl={item.imgUrl}
+                short_description={item.short_description}
+             />
+            })}
         </View>
       </ScrollView>
   )
