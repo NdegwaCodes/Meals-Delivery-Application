@@ -7,8 +7,12 @@ import { ArrowLeftIcon, ChevronDoubleRightIcon, LocationMarkerIcon,StarIcon } fr
 import { QuestionMarkCircleIcon, ArrowLeftCircleIcon } from 'react-native-heroicons/outline';
 import ItemRow from '../components/ItemRow';
 import BasketIcon from '../components/BasketIcon';
+import { useEffect } from 'react';
+import { setGrocery } from '../features/grocerySlice';
+import { useDispatch } from 'react-redux';
 const GroceryShopScreen = () => {
     const navigation = useNavigation();
+    const dispatch = useDispatch();
     const {
         params: {
             id,
@@ -23,6 +27,21 @@ const GroceryShopScreen = () => {
             lat,
         }
     } = useRoute();
+    useEffect(() => {
+        dispatch(setGrocery({
+            id,
+            imgUrl,
+            title,
+            rating,
+            genre,
+            address,
+            short_description,
+            items,
+            long,
+            lat,
+        })
+        );
+    }, []);
     useLayoutEffect(() => {
         navigation.setOptions({
             headerShown: false,
