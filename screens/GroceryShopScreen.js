@@ -6,6 +6,7 @@ import { urlFor } from '../sanity';
 import { ArrowLeftIcon, ChevronDoubleRightIcon, LocationMarkerIcon,StarIcon } from 'react-native-heroicons/solid';
 import { QuestionMarkCircleIcon, ArrowLeftCircleIcon } from 'react-native-heroicons/outline';
 import ItemRow from '../components/ItemRow';
+import BasketIcon from '../components/BasketIcon';
 const GroceryShopScreen = () => {
     const navigation = useNavigation();
     const {
@@ -28,6 +29,8 @@ const GroceryShopScreen = () => {
         });
     }, []);
   return (
+    <>
+    <BasketIcon />
     <ScrollView>
       <View className="relative">
         <Image source={{
@@ -66,7 +69,7 @@ const GroceryShopScreen = () => {
             <ChevronDoubleRightIcon color="#00CCBB" />
         </TouchableOpacity>
         </View>
-        <View>
+        <View className="pb-36">
             <Text className="px-4 pt-6 mb-3 font-bold text-xl">Items</Text>
             {/*Item Rows */}
             {items.map(item => {
@@ -81,7 +84,8 @@ const GroceryShopScreen = () => {
             })}
         </View>
       </ScrollView>
-  )
-}
+      </>
+  );
+};
 
 export default GroceryShopScreen

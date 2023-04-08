@@ -19,6 +19,8 @@ export default function App() {
    <Stack.Navigator>
       <Stack.Screen name="Home" component={HomeScreen} />
       <Stack.Screen name="GroceryShop" component={GroceryShopScreen}/>
+      <Stack.Screen name="Basket" component={BasketScreen} 
+      options={{ presentation: "model", headerShown: false}}/>
    </Stack.Navigator>
     </TailwindProvider>
     </Provider>
