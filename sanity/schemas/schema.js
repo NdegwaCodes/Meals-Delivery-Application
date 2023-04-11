@@ -6,7 +6,8 @@ import schemaTypes from "all:part:@sanity/base/schema-type";
 import featured from "./featured";
 import category from "./category";
 import grocery from "./grocery";
-import Item from "./Item";
+import Item from "./item";
+;
 
 
 //Then we give our schema to the builder and provide the result to Sanity

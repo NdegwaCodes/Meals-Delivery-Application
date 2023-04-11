@@ -3,7 +3,6 @@
     "target": "ES2017",
     "lib": ["dom", "dom.iterable", "esnext"],
     "strict": true,
-    "forceConsistentCasing": true,
     "noEmit": true,
     "esModuleInterop": true,
     "module": "esnext",
@@ -12,8 +11,10 @@
     "isolatedModules": true,
     "incremental": true,
     "allowJs": false,
-    "skipLibCheck": false
+    "skipLibCheck": false,
+    "rootDir": "./src",
+    "outDir": "./dist"
   },
-  "include": ["**/*.ts", "**/*.tsx"],
+  "include": ["src/**/*.ts"],
   "exclude": ["node_modules"]
 }
