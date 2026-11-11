@@ -33,7 +33,6 @@ beforeEach(() => {
 
 describe('ordering flow', () => {
   it('searches, opens a restaurant, fills the basket and places an order', async () => {
-    jest.useFakeTimers();
     await renderRouter(routes, { initialUrl: '/' });
 
     await fireEvent.changeText(screen.getByLabelText('Search restaurants and dishes'), 'biryani');
@@ -52,6 +51,7 @@ describe('ordering flow', () => {
     expect(screen.getByText('Place order · KSh 1,630')).toBeTruthy();
 
     await fireEvent.press(screen.getByText('Cash on delivery'));
+    jest.useFakeTimers();
     await fireEvent.press(screen.getByText('Place order · KSh 1,630'));
     expect(screen).toHavePathname('/preparing');
     expect(store.getState().basket.lines).toHaveLength(0);

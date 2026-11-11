@@ -43,6 +43,7 @@ src/
 ## Running it
 
 ```bash
+nvm use   # Node 24, from .nvmrc
 npm install
 npx expo start
 ```
